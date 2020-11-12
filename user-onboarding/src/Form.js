@@ -26,7 +26,7 @@ const onSubmit=evt=>{
         password:values.password.trim()
 }
  postNewUser(newUser) 
-   
+
 }
 
 const postNewUser= newUser=>{
@@ -77,8 +77,8 @@ const postNewUser= newUser=>{
                 <input
                 name="terms"
                 type='checkbox'
-                value={values.terms}
                 onChange={onChange}
+                checked={values.terms}
                 />
             </label>
             <button disabled={disabled}>Submit</button>
