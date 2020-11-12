@@ -11,7 +11,7 @@ const initialFormValues={
   name:'',
   email:'',
   password:'',
-  terms: false,
+  terms: false, 
 
 }
 
@@ -22,11 +22,20 @@ const initialFormErrors={
 
 }
 
+const initialDisabled=true
+
 
 function App() {
  
   const [formValues,setFormValues]=useState(initialFormValues)
   const [formErrors, setFormErrors]=useState(initialFormErrors)
+  const [disabled,setDisabled]=useState(initialDisabled)
+
+
+  const resetValues= ()=>{
+    setFormValues(initialFormValues)
+    console.log('values reset')
+  }
 
  
 
@@ -40,8 +49,10 @@ function App() {
       })
     })
     .catch ((err)=>{
+      console.log(err)
       setFormErrors({...formErrors,
-      [name]:err.errors[0]
+      [name]:err.errors[0] //map to get multiple errors??
+      
       })
     })
 
@@ -51,13 +62,22 @@ function App() {
     })
   }
 
+
+  useEffect(()=>{
+    schema.isValid(formValues)
+      .then(valid=>{
+        setDisabled(!valid);
+      })
+  }, [formValues])
+
   return (
     <div className="App">
      <Form 
      values={formValues}
      change={change}
      errors={formErrors}
-     initialValues={initialFormValues}
+     resetValues={resetValues}
+     disabled={disabled}
     
       />
     </div>

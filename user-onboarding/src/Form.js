@@ -5,9 +5,11 @@ import React, {useState, useEffect} from 'react'
 
 export default function Form(props){
     const initialUsers=[]
+    
     const [users, setUsers]=useState(initialUsers)
     
-    const{values, change,errors,initialValues}=props
+    
+    const{values, change,errors,resetValues, disabled}=props
 
 
 const onChange=evt =>{
@@ -23,14 +25,15 @@ const onSubmit=evt=>{
         email:values.email.trim(),
         password:values.password.trim()
 }
- postNewUser(newUser)   
+ postNewUser(newUser) 
+   
 }
 
 const postNewUser= newUser=>{
     axios.post('https://reqres.in/api/users', newUser)
         .then((res)=>{
             setUsers([res.data,...users])
-            console.log(res)
+            resetValues()
             })
         .catch((err)=>{
             console.log(err)
@@ -78,7 +81,7 @@ const postNewUser= newUser=>{
                 onChange={onChange}
                 />
             </label>
-            <button>Submit</button>
+            <button disabled={disabled}>Submit</button>
             </form>
 
 
