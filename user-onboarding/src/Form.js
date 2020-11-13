@@ -81,7 +81,7 @@ const postNewUser= newUser=>{
                 checked={values.terms}
                 />
             </label>
-            <button disabled={disabled}>Submit</button>
+            <button className="submitButton" disabled={disabled}>Submit</button>
             </form>
 
 
